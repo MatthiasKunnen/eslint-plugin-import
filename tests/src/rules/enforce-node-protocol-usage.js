@@ -1,5 +1,4 @@
 import { RuleTester } from '../rule-tester';
-import flatMap from 'array.prototype.flatmap';
 import { satisfies } from 'semver';
 
 import { getTSParsers, test, testVersion } from '../utils';
@@ -18,7 +17,7 @@ const settings = {
 };
 
 const invalidTests = [].concat(
-  flatMap(actualModules, (moduleName) => [].concat(
+  actualModules.flatMap((moduleName) => [].concat(
     {
       code: `import x from "${moduleName}";`,
       output: `import x from "node:${moduleName}";`,

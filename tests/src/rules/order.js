@@ -3,7 +3,6 @@ import { test, getTSParsers, getNonDefaultParsers, testFilePath, parsers } from 
 import { RuleTester, withoutAutofixOutput } from '../rule-tester';
 import eslintPkg from 'eslint/package.json';
 import semver from 'semver';
-import flatMap from 'array.prototype.flatmap';
 import { resolve } from 'path';
 import isCoreModule from 'is-core-module';
 import { default as babelPresetFlow } from 'babel-preset-flow';
@@ -217,7 +216,7 @@ ruleTester.run('order', rule, {
         var index = require('./');
       `,
     }),
-    ...flatMap(getTSParsers(), (parser) => [
+    ...getTSParsers().flatMap((parser) => [
       // Export equals expressions should be on top alongside with ordinary import-statements.
       test({
         code: `
@@ -880,7 +879,7 @@ ruleTester.run('order', rule, {
         pathGroupsExcludedImportTypes: [],
       }],
     }),
-    ...flatMap(getTSParsers, (parser) => [
+    ...getTSParsers().flatMap((parser) => [
       // Order of the `import ... = require(...)` syntax
       test({
         code: `
@@ -1682,7 +1681,7 @@ ruleTester.run('order', rule, {
         message: '`fs` import should occur after import of `../foo/bar`',
       }],
     }),
-    ...flatMap(getTSParsers(), (parser) => [
+    ...getTSParsers().flatMap((parser) => [
       // Order of the `import ... = require(...)` syntax
       test({
         code: `
